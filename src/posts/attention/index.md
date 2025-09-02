@@ -1,6 +1,6 @@
 ---
 title: "Attention"
-date: 2030-09-10
+date: 2025-01-04
 layout: post
 readingTime: 5
 tags: posts
