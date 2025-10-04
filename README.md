@@ -9,13 +9,13 @@ View live site [here](/)
 This is a personal blog built with [Eleventy (11ty)](https://www.11ty.dev/), a simple and fast static site generator.  
 I use this blog to document my learning journey, thoughts, and experiences.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Static Site Generator**: [Eleventy (11ty)](https://www.11ty.dev/)
 - **HTML/CSS/Markdown**: Content and styling
 - **Deployment**: You can deploy it on platforms like Netlify, Vercel, or GitHub Pages
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the repository
 

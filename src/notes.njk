@@ -1,0 +1,20 @@
+---
+title: Notes
+layout: base
+permalink: "/notes/"
+---
+
+<h1>Notes</h1>
+<p>Collected notes and write-ups.</p>
+<hr>
+  {% for post in collections.note | reverse %}
+    <article class="post-card">
+      <a class="post-link" href="{{ post.url | url }}">
+        <h2 class="post-title">{{ post.data.title or post.data.pageTitle }}</h2>
+        <p class="post-meta">
+          <b>
+            {{ post.date | date("MMMM d, yyyy") }} • {{ post.templateContent | readTime }} min read • by {{ post.data.author }}</b>
+        </p>
+      </a>
+    </article>
+  {% endfor %}

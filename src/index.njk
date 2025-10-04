@@ -19,17 +19,5 @@ pagination:
       Despite Next.js and other kind of frameworks provide wide range of features and support of huge community, I decided to
       use Eleventy for my blog. It's lightweight, fast and easy to use. I'm sharing the code of this blog on GitHub, so you
       can check it out and use it as a template for your own blog. I hope you find it useful.
-      <br></b>
-      {# <img src="/assets/sunrise_on_a_grateful_universe.png" alt="whale" class="img-large"> #}
-      <hr>
-        {% for post in collections.posts | reverse %}
-          <article class="post-card">
-            <a class="post-link" href="{{ post.url | url }}">
-              <h2 class="post-title">{{ post.data.title or post.data.pageTitle }}</h2>
-              <p class="post-meta">
-                <b>
-                  {{ post.date | date("MMMM d, yyyy") }} • {{ post.data.readingTime }} min read • by {{ post.data.author }}</b>
-              </p>
-            </a>
-          </article>
-        {% endfor %}
+      <br>
+        <br></b>

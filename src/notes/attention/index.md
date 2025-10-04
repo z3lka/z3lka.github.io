@@ -2,8 +2,7 @@
 title: "Attention"
 date: 2025-01-04
 layout: post
-readingTime: 5
-tags: posts
+tags: note
 published: True
 author: "You know who"
 ---

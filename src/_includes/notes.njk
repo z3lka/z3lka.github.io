@@ -10,14 +10,12 @@ layout: "base.njk"
       {{ content | readTime }} min read &middot; By
       <b>{{ author }}</b>
     </p>
-    <div class="post-content">
-      {{ content | safe }} <hr/>
-      <p style="font-size: 0.9rem;">Got thoughts?
-        <a href="mailto:thedeepblueseek@gmail.com
-                                            ">
-          Reach out to me anytime!
-        </a>
-      </p>
-    </div>
+    {{ content | safe }} <hr/>
+    <p style="font-size: 0.9rem;">Got thoughts?
+      <a href="mailto:thedeepblueseek@gmail.com
+                                                  ">
+        Reach out to me anytime!
+      </a>
+    </p>
   </article>
 {% endblock %}

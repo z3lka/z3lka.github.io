@@ -2,8 +2,7 @@
 title: "Inpsirations"
 date: 2025-04-28
 layout: post
-readingTime: 8
-tags: posts
+tags: note
 published: True
 author: "nOne"
 ---

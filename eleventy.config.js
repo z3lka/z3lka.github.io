@@ -6,10 +6,12 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
 
-  // Example filter for reading time (if you want to compute it)
-  eleventyConfig.addFilter("readTime", (text) =>
-    Math.ceil(text.split(/\s+/).length / 200)
-  );
+  // Reading time: strip HTML, normalize whitespace, 200 wpm, minimum 1 minute
+  eleventyConfig.addFilter("readTime", (text) => {
+    if (!text) return 0;
+    const plain = stripHtml(text).replace(/\s+/g, " ").trim();
+    return Math.max(1, Math.ceil(plain.split(" ").length / 200));
+  });
 
   eleventyConfig.addFilter("excerpt", (content, words = 50) => {
     if (!content) return "";

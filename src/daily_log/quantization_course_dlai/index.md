@@ -2,8 +2,7 @@
 title: "Notes on HuggingFace's 'Quantization Fundamentals'"
 date: 2025-05-07
 layout: post
-readingTime: 5
-tags: posts
+tags: log
 published: True
 author: "Not Andrew Ng"
 ---

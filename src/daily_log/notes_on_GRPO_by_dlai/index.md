@@ -2,8 +2,7 @@
 title: "Notes on GRPO by DL.AI"
 date: 2025-05-22
 layout: post
-readingTime: 10
-tags: posts
+tags: log
 published: True
 author: "You know who"
 ---
