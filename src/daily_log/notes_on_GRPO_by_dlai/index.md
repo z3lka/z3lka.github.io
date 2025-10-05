@@ -44,4 +44,4 @@ One proposed solution to this is RLHF, which is introduced by OpenAI and DeepMin
 
 Here is the schema:
 
-  <img src='/assets/GRPO.png' class='img-medium'>
+<img src="/assets/GRPO.png" class='img-medium'>
