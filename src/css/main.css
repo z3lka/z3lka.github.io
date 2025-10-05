@@ -107,7 +107,7 @@ h6 {
 
 @media (hover: hover) and (pointer: fine) {
   a:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   .post-card:hover {
@@ -117,7 +117,7 @@ h6 {
   }
 
   .post-card a:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   .post-card:hover::before {
