@@ -60,6 +60,10 @@ a {
   color: var(--link);
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 h1,
 h2,
 h3,
@@ -93,6 +97,12 @@ h6 {
     opacity .3s ease;
 }
 
+.post-card:hover {
+  background: var(--card-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
 .post-link {
   display: block;
   width: 100%;
@@ -105,24 +115,8 @@ h6 {
   outline-offset: 2px;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  a:hover {
-    text-decoration: none;
-  }
-
-  .post-card:hover {
-    background: var(--card-hover);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .post-card a:hover {
-    text-decoration: none;
-  }
-
-  .post-card:hover::before {
-    left: 100%;
-  }
+.post-link:hover .post-card {
+  box-shadow: var(--shadow-lg);
 }
 
 .post-card h2,
@@ -148,6 +142,10 @@ h6 {
   text-decoration: none;
 }
 
+.post-card a:hover {
+  text-decoration: underline;
+}
+
 .post-card img {
   max-width: 100%;
   height: auto;
@@ -167,6 +165,10 @@ h6 {
   inset: 0 0 0 -100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   transition: left 0.6s ease;
+}
+
+.post-card:hover::before {
+  left: 100%;
 }
 
 .post-meta {
