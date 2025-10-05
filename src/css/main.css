@@ -60,8 +60,11 @@ a {
   color: var(--link);
 }
 
-a:hover {
-  text-decoration: underline;
+/* Hover styles only for hover-capable devices to avoid double-tap on touch */
+@media (hover: hover) and (pointer: fine) {
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 h1,
@@ -97,10 +100,12 @@ h6 {
     opacity .3s ease;
 }
 
-.post-card:hover {
-  background: var(--card-hover);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+@media (hover: hover) and (pointer: fine) {
+  .post-card:hover {
+    background: var(--card-hover);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
 }
 
 .post-link {
@@ -115,8 +120,10 @@ h6 {
   outline-offset: 2px;
 }
 
-.post-link:hover .post-card {
-  box-shadow: var(--shadow-lg);
+@media (hover: hover) and (pointer: fine) {
+  .post-link:hover .post-card {
+    box-shadow: var(--shadow-lg);
+  }
 }
 
 .post-card h2,
@@ -142,8 +149,10 @@ h6 {
   text-decoration: none;
 }
 
-.post-card a:hover {
-  text-decoration: underline;
+@media (hover: hover) and (pointer: fine) {
+  .post-card a:hover {
+    text-decoration: underline;
+  }
 }
 
 .post-card img {
@@ -165,10 +174,13 @@ h6 {
   inset: 0 0 0 -100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   transition: left 0.6s ease;
+  pointer-events: none;
 }
 
-.post-card:hover::before {
-  left: 100%;
+@media (hover: hover) and (pointer: fine) {
+  .post-card:hover::before {
+    left: 100%;
+  }
 }
 
 .post-meta {
