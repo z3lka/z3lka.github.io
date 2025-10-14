@@ -1,12 +1,14 @@
 const { DateTime } = require("luxon");
 const stripHtml = require("striptags");
 
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+
 module.exports = function (eleventyConfig) {
-  // Copy `src/styles.css` to output
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
 
-  // Reading time: strip HTML, normalize whitespace, 200 wpm, minimum 1 minute
+  eleventyConfig.addPlugin(syntaxHighlight);
+
   eleventyConfig.addFilter("readTime", (text) => {
     if (!text) return 0;
     const plain = stripHtml(text).replace(/\s+/g, " ").trim();
@@ -15,7 +17,6 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("excerpt", (content, words = 50) => {
     if (!content) return "";
-    // remove markup then trim white‑space
     const text = stripHtml(content).replace(/\s+/g, " ").trim();
 
     const wordArray = text.split(" ").slice(0, words);

@@ -1,6 +1,5 @@
 module.exports = {
   eleventyComputed: {
-    // Use front matter `date` if present; otherwise, fallback to file birth time
     date: (data) => {
       if (data.date) return data.date;
       try {

@@ -268,3 +268,36 @@ img {
     opacity: 1;
   }
 }
+
+/* Code block styling */
+pre[class*="language-"] {
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  padding: 1.25rem !important;
+}
+
+code[class*="language-"] {
+  border-radius: 4px;
+}
+
+/* Inline code styling */
+:not(pre)>code {
+  border-radius: 4px;
+  padding: 0.2em 0.4em;
+  background: var(--bg-alt);
+  color: var(--text);
+  font-size: 0.9em;
+}
+
+/* Content area with lighter background */
+.post-content {
+  background: var(--bg-alt);
+  padding: 2rem;
+  border-radius: var(--radius);
+  margin-top: 1.5rem;
+}
+
+/* Remove horizontal footer line on post pages only */
+.feed>.post+footer {
+  border-top: none !important;
+}

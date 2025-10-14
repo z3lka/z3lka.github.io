@@ -6,15 +6,14 @@ permalink: "/daily_log/"
 
 <h1>Daily Log</h1>
 <p>My daily log of what I've been up to.</p>
-<hr>
-  {% for log in collections.log | reverse %}
-    <article class="post-card">
-      <a class="post-link" href="{{ log.url | url }}">
-        <h2 class="post-title">{{ log.data.title or log.data.pageTitle }}</h2>
-        <p class="post-meta">
-          <b>
-            {{ log.date | date("MMMM d, yyyy") }} • {{ log.templateContent | readTime }} min read • by {{ log.data.author }}</b>
-        </p>
-      </a>
-    </article>
-  {% endfor %}
+{% for log in collections.log | reverse %}
+  <article class="post-card">
+    <a class="post-link" href="{{ log.url | url }}">
+      <h2 class="post-title">{{ log.data.title or log.data.pageTitle }}</h2>
+      <p class="post-meta">
+        <b>
+          {{ log.date | date("MMMM d, yyyy") }} • {{ log.templateContent | readTime }} min read • by {{ log.data.author }}</b>
+      </p>
+    </a>
+  </article>
+{% endfor %}
