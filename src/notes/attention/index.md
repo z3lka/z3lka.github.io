@@ -1,6 +1,5 @@
 ---
 title: "Attention"
-date: 2025-01-04
 layout: post
 tags: note
 published: True
