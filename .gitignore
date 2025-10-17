@@ -1,4 +1,4 @@
 /node_modules
 /_site
-*.nojekyll
-.package-lock.json
+.nojekyll
+package-lock.json

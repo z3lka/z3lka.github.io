@@ -4,16 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "pnpm exec eleventy",
-    "start": "pnpm exec eleventy --serve",
-    "dev": "pnpm exec eleventy --serve"
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "dev": "eleventy --serve"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@11ty/eleventy": "^3.0.0",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
-    "striptags": "^3.2.0"
-  }
+  "license": "ISC"
 }
