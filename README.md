@@ -20,8 +20,8 @@ I use this blog to document my learning journey, thoughts, and experiences.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/your-blog-repo.git
-cd your-blog-repo
+git clone https://github.com/z3lka/z3lka.github.io.git
+cd z3lka.github.io
 ```
 
 ## 2. Install dependicies
