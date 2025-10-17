@@ -1,0 +1,132 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Notes on GRPO by DL.AI</title>
+    <meta name='description' content=""/>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data:; style-src 'self' https://unpkg.com; object-src 'none'; base-uri
+        'self'; frame-ancestors 'none'; form-action 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="stylesheet" href="https://unpkg.com/water.css@2/out/water.css"/>
+    <link rel="stylesheet" href="/css/main.css">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#4338ca">
+    <style>
+      /* Loading animation for page transitions */
+      .page-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        animation: loading 1.5s ease-in-out infinite;
+        z-index: 1000;
+      }
+      @keyframes loading {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="feed">
+      <nav>
+        <span>
+          <a href="/">Whale's Blog</a>
+          <span style="margin: 0 5px;">|</span>
+          <a href="/notes">Notes</a>
+          <span style="margin: 0 5px;">|</span>
+          <a href="/posts">Posts</a>
+          <span style="margin: 0 5px;">|</span>
+          <a href="/daily_log">Daily Log</a>
+          <span style="margin: 0 5px;">|</span>
+          <a href="/projects">Projects</a>
+        </span>
+      </nav>
+       
+
+
+  <article class="post">
+    <h1>Notes on GRPO by DL.AI</h1>
+    <p class="post-meta">
+      May 22, 2025 &middot;
+      2 min read &middot; By
+      <b>You know who</b>
+    </p>
+    <div class="post-content">
+      <h2>Pre-notes</h2>
+<p><a href="https://learn.deeplearning.ai/courses/reinforcement-fine-tuning-llms-grpo/lesson/sjbja/introduction">This course</a> explains Reinforcement Learning via the usage in LLMs. So I'll follow what is given in th ecourse if you want to learn more about it here are the resources. [Resources are suggested by <a href="https://x.com/willccbb/status/1906050540426993821">Willccbb</a>]</p>
+<p><a href="https://www.youtube.com/watch?v=NFo9v_yKQXA&amp;list=PLzvYlJMoZ02Dxtwe-MmH4nOB5jYlMGBjr">RL video series on YouTube - Easy</a></p>
+<p><a href="https://spinningup.openai.com/en/latest/">Open AI Spinning up - Medium</a></p>
+<p><a href="https://rltheorybook.github.io/rltheorybook_AJKS.pdf">RL Theory Book - Hard</a></p>
+<p>Addition to the Will's suggestions here are the other resources:</p>
+<p><a href="https://www.andrew.cmu.edu/course/10-703/textbook/BartoSutton.pdf">RL Book Sutton &amp; Barto</a></p>
+<p><a href="https://huggingface.co/learn/deep-rl-course/unit0/introduction">HuggingFace's Deep RL course</a></p>
+<p><a href="https://huggingface.co/learn/llm-course/chapter12/1?fw=pt">HuggingFace's GRPO intro via LLMs</a></p>
+<p><a href="https://unsloth.ai/blog">Unsloth has very useful notebooks on GRPO and how to implement them</a></p>
+<p><a href="https://gist.github.com/willccbb/4676755236bb08cab5f4e54a0475d6fb">And finally Will's grpo_demo gist (I learned a lot from a single gist)</a></p>
+<h1>Fine-Tuning an LLM</h1>
+<p>After pre-trained an LLM it doesn't answers as we expected. It just predicts the next token. For example when you ask a question LLM could answer you with another question. In order to make LLM useful and answer our questions there is an another stage called &quot;Fine-tuning&quot;. In this stage by showing examples to the LLM how to answer LLM will eventually learns how to answer the question.</p>
+<p>There are several techniques to complete this step and one of the most known and being used one is called &quot;Supervised fine-tuning&quot;. In this stage there are human labelers who provides the intended output to the LLM. Despite this method directly teaches model how to respond it requires large amounts of data which is quite costly. Besides that model may learn patterns which is to specific to the related domain.</p>
+<p>One proposed solution to this is RLHF, which is introduced by OpenAI and DeepMind back in 2017. Objective of this approach is ranking answers given to the users by a reward model.</p>
+<ul>
+<li>First, the model generates several outputs for one prompt.</li>
+<li>Then, annotators is asked to rank these responses</li>
+<li>After that, these rankings given to a reward model. These reward model is trained with given (prompt, answer) pair and after trainign it learns how good a response is.</li>
+<li>And finally, LLM is being fine-tuned based on reward model's scores.</li>
+</ul>
+<p>Here is the schema:</p>
+<img src="/assets/GRPO.png" class='img-medium'>
+ <hr/>
+      <p style="font-size: 0.9rem;">Got thoughts?
+        <a href="mailto:thedeepblueseek@gmail.com">
+          Reach out to me anytime!
+        </a>
+      </p>
+    </div>
+  </article>
+
+      <footer>
+  <div>
+    <p>
+      
+        <a href="https://github.com/z3lka">GitHub</a>
+      
+    </p>
+  </div>
+</footer>
+    </div>
+    <script>
+      // Add loading animation for post card clicks
+      document.addEventListener('DOMContentLoaded', function () {
+        const postCards = document.querySelectorAll('.post-card a');
+        postCards.forEach(card => {
+          card.addEventListener('click', function (e) { // Add loading indicator
+            const loadingBar = document.createElement('div');
+            loadingBar.className = 'page-loading';
+            document.body.appendChild(loadingBar);
+            // Add click animation to the card
+            const cardElement = this.closest('.post-card');
+            cardElement.style.transform = 'translateY(-2px) scale(0.98)';
+            cardElement.style.opacity = '0.9';
+            // Remove loading bar after a short delay (simulating page load)
+            setTimeout(() => {
+              if (loadingBar.parentNode) {
+                loadingBar.parentNode.removeChild(loadingBar);
+              }
+            }, 800);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

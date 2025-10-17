@@ -1,0 +1,159 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Designing Data Intensive Applications</title>
+    <meta name='description' content=""/>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data:; style-src 'self' https://unpkg.com; object-src 'none'; base-uri
+        'self'; frame-ancestors 'none'; form-action 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="stylesheet" href="https://unpkg.com/water.css@2/out/water.css"/>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#4338ca">
+    <style>
+      /* Loading animation for page transitions */
+      .page-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        animation: loading 1.5s ease-in-out infinite;
+        z-index: 1000;
+      }
+      @keyframes loading {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="feed">
+      <nav>
+        <span>
+          <a href="/">Just a Blog</a>
+          <span style="margin: 0 5px;">|</span>
+          <a href="/notes">Notes</a>
+          <span style="margin: 0 5px;">|</span>
+          <a href="/posts">Posts</a>
+          <span style="margin: 0 5px;">|</span>
+          <a href="/daily_log">Daily Log</a>
+          <span style="margin: 0 5px;">|</span>
+          <a href="/projects">Projects</a>
+        </span>
+      </nav>
+       
+
+
+  <article class="post">
+    <h1>Designing Data Intensive Applications</h1>
+    <p class="post-meta">
+      October 14, 2025 &middot;
+      3 min read &middot; By
+      <b>not andrew ng</b>
+    </p>
+    <div class="post-content">
+      <h1><a href="#chapter_1">Chapter 1</a></h1>
+<ul>
+<li>Many applications need to:
+<ul>
+<li>Store the data <strong>(database)</strong></li>
+<li>Remember the results of an expensive operation <strong>(cache)</strong></li>
+<li>Allow userrs to search the data by keyword <strong>(search index)</strong></li>
+<li>Send a message to another process, to handle asynchronously <strong>(stream processing)</strong></li>
+<li>Periodically crunch a large amount of accumulated data <strong>(batch processing)</strong></li>
+</ul>
+</li>
+</ul>
+<p>While these seem basic implementing it to an application that works smoothly needs configuration.
+There are three main concerns that are crucial in most of software systems:</p>
+<ul>
+<li>Reliability: System should work correctly (performing the correct function at the desired level of performance) even in case of adversity (hardware/software faults, even human error).</li>
+<li>Scalability: As the systems grows (data, user traffic, etc. ) there should be a way to deal with the growth.</li>
+<li>Maintainabilty: As the application grown anyone can maintain it without causing an issue.</li>
+</ul>
+<h2>Reliability</h2>
+<p>A software systems should be reliable with these expectations:</p>
+<ul>
+<li>The application performs the function as the user expected.</li>
+<li>It can tolerate the user's mistakes or using of the software in an unexpected way.</li>
+<li>The performance is good enough under the exepected load and data volume.</li>
+<li>The system prevents any unauthorized access and abuse.</li>
+</ul>
+<p>In one sentence reliabiltiy is: &quot;working correctly, even when things go wrong.&quot;.</p>
+<p>Fault and failure aren't the same. <em>Fault</em> is a component deviating from its spec, whereas <em>failure</em> is the system stop providing the required service.</p>
+<h1>Scalability</h1>
+<p>Load on a system can be described with a few numbers called <em>load parameters</em>. This depends on the system architecture it can be requests per second to a server, the number of simultaneously active users in a chat, hit rate on a cache, etc.</p>
+<p>Here is a sample case scenario from Twitter <a href="http://www.infoq.com/presentations/Twitter-Timeline-Scalability">2012</a>:</p>
+<ul>
+<li>Post tweet: A user can post a tweet (4.6k req/sec on average, 12k req/sec at peak)</li>
+<li>Home Timeline: A user can view tweets posted by the people hey follow (300k req/sec).</li>
+</ul>
+<p>But Twitter's problem wasn't tweet post ratio. It's due to fan-out[i] each user follows many people, each user is followed by many people.</p>
+<p>Think like this:</p>
+<ul>
+<li>When a user requests new timeline first database look up all the people they follow, find all tweets for each of the users and merge them into a sorted timeline. The SQL query can look like this:</li>
+</ul>
+<pre class="language-sql"><code class="language-sql"><span class="token keyword">SELECT</span> tweets<span class="token punctuation">.</span><span class="token operator">*</span><span class="token punctuation">,</span> users<span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">FROM</span> tweets
+  <span class="token keyword">JOIN</span> users <span class="token keyword">ON</span> tweets<span class="token punctuation">.</span>sender_id <span class="token operator">=</span> users<span class="token punctuation">.</span>id
+  <span class="token keyword">JOIN</span> follows <span class="token keyword">ON</span> follows<span class="token punctuation">.</span>followee_id <span class="token operator">=</span> users<span class="token punctuation">.</span>id
+  <span class="token keyword">WHERE</span> follows<span class="token punctuation">.</span>follower_id <span class="token operator">=</span> <span class="token keyword">current_user</span></code></pre>
+<pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">calculate_attention</span><span class="token punctuation">(</span>query<span class="token punctuation">,</span> key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    scores <span class="token operator">=</span> torch<span class="token punctuation">.</span>matmul<span class="token punctuation">(</span>query<span class="token punctuation">,</span> key<span class="token punctuation">.</span>transpose<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    attention_weights <span class="token operator">=</span> torch<span class="token punctuation">.</span>softmax<span class="token punctuation">(</span>scores<span class="token punctuation">,</span> dim<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> torch<span class="token punctuation">.</span>matmul<span class="token punctuation">(</span>attention_weights<span class="token punctuation">,</span> value<span class="token punctuation">)</span></code></pre>
+
+      <p style="font-size: 0.9rem;">Got thoughts?
+        <a href="mailto:thedeepblueseek@gmail.com">
+          Reach out to me anytime!
+        </a>
+      </p>
+    </div>
+  </article>
+
+      <footer>
+  <div>
+    <p>
+      
+        <a href="https://github.com/z3lka">GitHub</a>
+      
+    </p>
+  </div>
+</footer>
+    </div>
+    <script>
+      // Add loading animation for post card clicks
+      document.addEventListener('DOMContentLoaded', function () {
+        const postCards = document.querySelectorAll('.post-card a');
+        postCards.forEach(card => {
+          card.addEventListener('click', function (e) { // Add loading indicator
+            const loadingBar = document.createElement('div');
+            loadingBar.className = 'page-loading';
+            document.body.appendChild(loadingBar);
+            // Add click animation to the card
+            const cardElement = this.closest('.post-card');
+            cardElement.style.transform = 'translateY(-2px) scale(0.98)';
+            cardElement.style.opacity = '0.9';
+            // Remove loading bar after a short delay (simulating page load)
+            setTimeout(() => {
+              if (loadingBar.parentNode) {
+                loadingBar.parentNode.removeChild(loadingBar);
+              }
+            }, 800);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

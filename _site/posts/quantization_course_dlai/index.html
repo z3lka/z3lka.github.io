@@ -1,0 +1,63 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Notes on HuggingFace's 'Quantization Fundamentals'</title>
+    <meta name='description' content=""/>
+    <link rel="stylesheet" href="https://unpkg.com/water.css@2/out/water.css"/>
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <div class="feed">
+      <nav>
+        <span>
+          Whale's Blog:
+          <a href="/">Home</a>
+          <a href="/notes">Notes</a>
+          <a href="/posts">Posts</a>
+          <a href="/daily_log">Daily Log</a>
+        </span>
+      </nav>
+       
+
+
+  <article class="post">
+    <h1>Notes on HuggingFace&#39;s &#39;Quantization Fundamentals&#39;</h1>
+    <p class="post-meta">
+      May 7, 2025 &middot; 5 min read &middot; By
+      <b>Not Andrew Ng</b>
+    </p>
+    <h1>What is &quot;Quantization&quot;?</h1>
+<p>As LLMs are getting better, they also become larger and larger and this makes harder to run them on consumer GPUs (not everyone has A100 cluster in their home). Most of the State of the art models nowadays changes around 30B (Qwen 2.5 32B) to 70B (Llama 3.1) (there are larger numbers but they can only be run on clusters e.g. you can't run Deepseek-R1 671B on any single GPU). There are several methods to overcome this problem:</p>
+<ul>
+<li><strong>Pruning</strong>: Which removes layers those are not much important during model's decision.</li>
+<li><strong>Knowledge distillation</strong>: Teaching a student model from a teacher model's outputs (Still costly)</li>
+<li><strong>Quantization</strong>: Basically representing model's weights in a lower precision.
+Let's say the model's weights are stored as FP32 (which is default for most of the models) and each number allocates 4 bytes of memory and in total 36 bytes are allocated for a 3x3 matrix. In order to shrink this size we can convert them into INT8 which is 1 byte for each number and in total we have 9 bytes for a 3x3 matrix. But this comes with a cost &quot;Quantization error&quot;
+<img src='/assets/matrix.png' class='img-right img-medium'>
+<img src="/assets/matrix.png" alt="imag"></li>
+</ul>
+<h1>Linear Quantization</h1>
+ <hr/>
+    <p style="font-size: 0.9rem;">Got thoughts?
+      <a href="mailto:thedeepblueseek@gmail.com
+          ">
+        Reach out to me anytime!
+      </a>
+    </p>
+  </article>
+
+      <footer>
+  <div>
+    <p>
+      
+        <a href="https://github.com/z3lka">GitHub</a>
+      
+    </p>
+  </div>
+</footer>
+    </div>
+  </body>
+</html>
