@@ -1,7 +1,7 @@
 ---
 title: "Designing Data Intensive Applications"
 layout: notes
-tags: note
+tags: notes
 published: True
 author: "not andrew ng"
 ---
