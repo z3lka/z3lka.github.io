@@ -1,22 +1,24 @@
 ---
-layout: "base.njk"
---- 
+layout: base.njk
+---
 
-{% block content %}
-  <article class="post">
+<article class="page-article section-reveal">
+  <a class="back-link" href="/#posts">Back to home</a>
+  <header class="article-header">
+    <span class="section-label">Post</span>
     <h1>{{ title }}</h1>
-    <p class="post-meta">
-      {{ page.date | date("MMMM d, yyyy") }} &middot;
-      {{ content | readTime }} min read &middot; By
-      <b>{{ author }}</b>
-    </p>
-    <div class="post-content">
-      {{ content | safe }}
-      <p style="font-size: 0.9rem;">Got thoughts?
-        <a href="mailto:thedeepblueseek@gmail.com">
-          Reach out to me anytime!
-        </a>
-      </p>
+    <div class="item-meta article-meta">
+      <span>{{ page.date | date("MMMM d, yyyy") }}</span>
+      <span>{{ content | readTime }} min read</span>
+      <span>{{ author or site.title }}</span>
     </div>
-  </article>
-{% endblock %}
+  </header>
+
+  <div class="article-body">
+    {{ content | safe }}
+  </div>
+
+  <div class="article-footer">
+    <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+  </div>
+</article>

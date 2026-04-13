@@ -1,19 +1,17 @@
 ---
-title: Posts
-layout: base
 permalink: "/posts/"
+eleventyExcludeFromCollections: true
 ---
-
-<h1>Posts</h1>
-<p>Nothing but something that came to my mind.</p>
-{% for post in collections.posts | reverse %}
-  <article class="post-card">
-    <a class="post-link" href="{{ post.url | url }}">
-      <h2 class="post-title">{{ post.data.title or post.data.pageTitle }}</h2>
-      <p class="post-meta">
-        <b>
-          {{ post.date | date("MMMM d, yyyy") }} • {{ post.templateContent | readTime }} min read • by {{ post.data.author }}</b>
-      </p>
-    </a>
-  </article>
-{% endfor %}
+{% set redirect = "/#posts" if collections.posts.length else "/" %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url={{ redirect }}">
+    <link rel="canonical" href="{{ redirect }}">
+    <title>Redirecting…</title>
+  </head>
+  <body>
+    <p><a href="{{ redirect }}">Continue</a></p>
+  </body>
+</html>

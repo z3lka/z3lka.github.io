@@ -1,7 +1,9 @@
 {
-  "name": "Just a Blog",
+  "name": "z3lka",
   "url": "/",
-  "title": "Just a Blog",
-  "description": "Welcome to Blog",
-  "github": "https://github.com/z3lka"
+  "title": "z3lka",
+  "tagline": "Projects, notes, and writing",
+  "description": "Personal portfolio and writing site focused on software, systems, and machine learning.",
+  "github": "https://github.com/z3lka",
+  "email": "thedeepblueseek@gmail.com"
 }

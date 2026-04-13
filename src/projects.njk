@@ -1,22 +1,17 @@
 ---
-title: Projects
-layout: base
 permalink: "/projects/"
+eleventyExcludeFromCollections: true
 ---
-
-<h1>Projects</h1>
-<p>Here are some of my projects.
-  <br>→ Here I'll briefly describe what I've done and what I'm working on.
-    <br>→ Maybe I'll share the story behind the project.</p>
-    {% for project in collections.projects | reverse %}
-      <article class="post-card">
-        <a class="post-link" href="{{ project.url | url }}">
-          <h2 class="post-title">{{ project.data.title or project.data.pageTitle }}</h2>
-          <p class="post-meta">
-            <b>
-              {{ project.date | date("MMMM d, yyyy") }} • {{ project.templateContent | readTime }} min read • by
-            {{ project.data.author }}</b>
-          </p>
-        </a>
-      </article>
-    {% endfor %}
+{% set redirect = "/#projects" if collections.projects.length else "/" %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url={{ redirect }}">
+    <link rel="canonical" href="{{ redirect }}">
+    <title>Redirecting…</title>
+  </head>
+  <body>
+    <p><a href="{{ redirect }}">Continue</a></p>
+  </body>
+</html>

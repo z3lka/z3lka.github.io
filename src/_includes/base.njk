@@ -1,83 +1,46 @@
-{# This page just for display title, date and content #}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>{{ (title or site.title) | safe }}</title>
-    <meta name='description' content="{{ description or site.description }}"/>
+    <title>{% if title and title != site.title %}{{ title | safe }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{{ description or site.description }}">
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; img-src 'self' data:; style-src 'self' https://unpkg.com; object-src 'none'; base-uri
-        'self'; frame-ancestors 'none'; form-action 'self'">
+      content="default-src 'self'; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com https://unpkg.com; font-src https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <link rel="stylesheet" href="https://unpkg.com/water.css@2/out/water.css"/>
-    <link rel="stylesheet" href="/css/main.css">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#182127">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/prismjs@1.29.0/themes/prism-tomorrow.min.css">
-    <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#4338ca">
-    <style>
-      /* Loading animation for page transitions */
-      .page-loading {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        animation: loading 1.5s ease-in-out infinite;
-        z-index: 1000;
-      }
-      @keyframes loading {
-        0% {
-          transform: translateX(-100%);
-        }
-        100% {
-          transform: translateX(100%);
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
-    <div class="feed">
-      <nav>
-        <span>
-          <a href="/">{{ site.title }}</a>
-          <span style="margin: 0 5px;">|</span>
-          <a href="/notes">Notes</a>
-          <span style="margin: 0 5px;">|</span>
-          <a href="/posts">Posts</a>
-          <span style="margin: 0 5px;">|</span>
-          <a href="/daily_log">Daily Log</a>
-          <span style="margin: 0 5px;">|</span>
-          <a href="/projects">Projects</a>
-        </span>
-      </nav>
-      {{ content | safe }}
+    <div class="site-shell">
+      <header class="site-header section-reveal">
+        <a class="brand" href="/">z3lka</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/#about" {% if page.url == "/" %}aria-current="page"{% endif %}>About</a>
+          <a href="/#projects">Projects</a>
+          {% if collections.notes.length %}
+            <a href="/#notes">Notes</a>
+          {% endif %}
+          {% if collections.posts.length %}
+            <a href="/#posts">Posts</a>
+          {% endif %}
+          {% if collections.log.length %}
+            <a href="/#updates">Updates</a>
+          {% endif %}
+        </nav>
+      </header>
+      <main class="site-main">
+        {{ content | safe }}
+      </main>
       {% include "footer.njk" %}
     </div>
-    <script>
-      // Add loading animation for post card clicks
-      document.addEventListener('DOMContentLoaded', function () {
-        const postCards = document.querySelectorAll('.post-card a');
-        postCards.forEach(card => {
-          card.addEventListener('click', function (e) { // Add loading indicator
-            const loadingBar = document.createElement('div');
-            loadingBar.className = 'page-loading';
-            document.body.appendChild(loadingBar);
-            // Add click animation to the card
-            const cardElement = this.closest('.post-card');
-            cardElement.style.transform = 'translateY(-2px) scale(0.98)';
-            cardElement.style.opacity = '0.9';
-            // Remove loading bar after a short delay (simulating page load)
-            setTimeout(() => {
-              if (loadingBar.parentNode) {
-                loadingBar.parentNode.removeChild(loadingBar);
-              }
-            }, 800);
-          });
-        });
-      });
-    </script>
   </body>
 </html>
