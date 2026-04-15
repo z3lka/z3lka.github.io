@@ -5,5 +5,59 @@
   "tagline": "Projects, notes, and writing",
   "description": "Personal portfolio and writing site focused on software, systems, and machine learning.",
   "github": "https://github.com/z3lka",
-  "email": "thedeepblueseek@gmail.com"
+  "email": "thedeepblueseek@gmail.com",
+  "stickers": {
+    "left": [
+      {
+        "src": "/assets/sherma.png",
+        "href": "https://www.youtube.com/shorts/dUTdEG57_x0",
+        "label": "sherma",
+        "target": "_blank"
+      },
+      {
+        "src": "/assets/the_knight.png",
+        "href": "https://www.hollowknight.com",
+        "label": "the knight",
+        "target": "_blank"
+      },
+      {
+        "src": "/assets/andrew_ng.jpg",
+        "href": "https://www.andrewng.org",
+        "label": "GOAT",
+        "target": "_blank"
+      }
+    ],
+    "right": [
+      {
+        "src": "/assets/hornet.png",
+        "href": "https://www.teamcherry.com.au/games",
+        "label": "hornet",
+        "target": "_blank"
+      },
+      {
+        "src": "/assets/totoro_2.webp",
+        "href": "https://youtu.be/yGYeE-UTtaE",
+        "label": "totoro",
+        "target": "_blank"
+      },
+      {
+        "src": "/assets/best_boss.png",
+        "href": "https://youtu.be/dBUGfs9rwms",
+        "label": "boss",
+        "target": "_blank"
+      },
+      {
+        "src": "/assets/saitama.png",
+        "href": "https://youtu.be/atxYe-nOa9w",
+        "label": "ONE PUNCH",
+        "target": "_blank"
+      },
+      {
+        "src": "/assets/frieren.png",
+        "href": "https://youtu.be/M7gm_r8hXoU",
+        "label": "frieren",
+        "target": "_blank"
+      }
+    ]
+  }
 }

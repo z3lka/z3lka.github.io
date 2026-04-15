@@ -19,7 +19,53 @@
     <link rel="stylesheet" href="https://unpkg.com/prismjs@1.29.0/themes/prism-tomorrow.min.css">
     <link rel="stylesheet" href="/css/main.css">
   </head>
-  <body>
+  <body{% if page.url == "/" %} class="home-page"{% endif %}>
+    {% if site.stickers %}
+      {% if site.stickers.left.length %}
+        <div class="sticker-rail sticker-rail--left">
+          {% for sticker in site.stickers.left %}
+            {% set stickerSrc = sticker.src or sticker %}
+            {% if sticker.href %}
+                <a
+                  class="side-sticker-link"
+                  href="{{ sticker.href }}"
+                  aria-label="{{ sticker.label or 'Sticker link' }}"
+                  {% if sticker.target %}target="{{ sticker.target }}" rel="noopener
+                  noreferrer"{% endif %}
+                  title="{{ sticker.label or 'Sticker link' }}"
+                >
+                <img class="side-sticker" src="{{ stickerSrc | url }}" alt="">
+              </a>
+            {% else %}
+              <img class="side-sticker" src="{{ stickerSrc | url }}" alt="" title="{{ sticker.label or '' }}">
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if site.stickers.right.length %}
+        <div class="sticker-rail sticker-rail--right">
+          {% for sticker in site.stickers.right %}
+            {% set stickerSrc = sticker.src or sticker %}
+            {% if sticker.href %}
+              <a
+                  class="side-sticker-link"
+                  href="{{ sticker.href }}"
+                  aria-label="{{ sticker.label or 'Sticker link' }}"
+                  {% if sticker.target %}target="{{ sticker.target }}" rel="noopener
+                  noreferrer"{% endif %}
+                  title="{{ sticker.label or 'Sticker link' }}"
+                >
+                <img class="side-sticker" src="{{ stickerSrc | url }}" alt="">
+              </a>
+            {% else %}
+              <img class="side-sticker" src="{{ stickerSrc | url }}" alt="" title="{{ sticker.label or '' }}">
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+
     <div class="site-shell">
       <header class="site-header section-reveal">
         <a class="brand" href="/">z3lka</a>

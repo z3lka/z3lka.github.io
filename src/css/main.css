@@ -10,6 +10,8 @@
   --accent-soft: rgba(29, 79, 89, 0.08);
   --max-width: min(860px, calc(100% - 2rem));
   --radius: 18px;
+  --sticker-size: 128px;
+  --sticker-gap: 2rem;
   font-size: 16px;
 }
 
@@ -49,9 +51,69 @@ img {
 }
 
 .site-shell {
+  position: relative;
+  z-index: 1;
   width: var(--max-width);
   margin: 0 auto;
   padding: 1.5rem 0 4rem;
+}
+
+.sticker-rail {
+  position: fixed;
+  top: 7rem;
+  bottom: 2rem;
+  z-index: 0;
+  display: grid;
+  width: var(--sticker-size);
+  gap: var(--sticker-gap);
+  align-content: start;
+  pointer-events: none;
+}
+
+.home-page .sticker-rail--left {
+  top: 24rem;
+}
+
+.sticker-rail--left {
+  left: max(1rem, calc((100vw - 860px) / 2 - var(--sticker-size) - 2rem));
+}
+
+.sticker-rail--right {
+  right: max(1rem, calc((100vw - 860px) / 2 - var(--sticker-size) - 2rem));
+}
+
+.side-sticker-link {
+  display: block;
+  width: var(--sticker-size);
+  height: var(--sticker-size);
+  border-radius: 0;
+  line-height: 0;
+  pointer-events: auto;
+}
+
+.side-sticker {
+  width: var(--sticker-size);
+  height: var(--sticker-size);
+  border-radius: 0;
+  object-fit: contain;
+}
+
+.side-sticker-link .side-sticker {
+  width: 100%;
+  height: 100%;
+}
+
+.sticker-rail>*:nth-child(odd) {
+  transform: rotate(-5deg);
+}
+
+.sticker-rail>*:nth-child(even) {
+  transform: rotate(4deg);
+}
+
+.side-sticker-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
 }
 
 .site-header {
@@ -402,6 +464,12 @@ pre[class*="language-"] {
 
   .site-nav {
     gap: 0.65rem;
+  }
+}
+
+@media (max-width: 1180px) {
+  .sticker-rail {
+    display: none;
   }
 }
 
