@@ -3,6 +3,9 @@ name: Build & Deploy Eleventy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+      - cron: "10 21 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -32,6 +35,9 @@ jobs:
 
       - name: Build site
         run: pnpm run build
+        env:
+          GITHUB_USERNAME: z3lka
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIVITY_TOKEN }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

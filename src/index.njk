@@ -5,12 +5,53 @@ permalink: "/"
 description: Personal portfolio and notes by z3lka.
 ---
 
+<div class="home-with-sidebar">
+
+<aside class="home-sidebar">
+  <section class="github-month">
+    <div class="github-month__header">
+      <span>GitHub Activity</span>
+      <h2>{{ githubActivity.monthLabel }}</h2>
+      <p>{{ githubActivity.total }} contributions</p>
+    </div>
+
+    {% if githubActivity.error %}
+      <p class="github-month__status">Could not load GitHub activity.</p>
+    {% endif %}
+
+    <div class="github-month__weekdays" aria-hidden="true">
+      <span>M</span>
+      <span>T</span>
+      <span>W</span>
+      <span>T</span>
+      <span>F</span>
+      <span>S</span>
+      <span>S</span>
+    </div>
+
+    <div class="github-month__grid">
+      {% for spacer in range(0, githubActivity.leadingSpacers) %}
+        <div class="github-day-spacer" aria-hidden="true"></div>
+      {% endfor %}
+
+      {% for day in githubActivity.days %}
+        <div
+          class="github-day github-day--level-{{ day.level }}"
+          title="{{ day.date }} — {{ day.contributionCount }} contributions"
+          aria-label="{{ day.date }} — {{ day.contributionCount }} contributions"
+        ></div>
+      {% endfor %}
+    </div>
+  </section>
+</aside>
+
+<div class="home-content">
+
 <section class="hero home-section section-reveal" id="about">
   <h1>Hi, I'm Ahmet</h1>
   <p>I just chill around usually, when I don't I do some <a href="https://github.com/z3lka">code</a>, watch some anime or just walk around in the city.</p>
   <p>I love learning new things when I started to university in my preperation year I took Andrew Ng's deep learning course, the way Andrew teaches sparked something inside me and i was really shocked when the first cat classifier worked.
   </p>
-
 </section>
 
 <section class="home-section section-reveal" id="projects">
@@ -115,3 +156,6 @@ description: Personal portfolio and notes by z3lka.
     </div>
   </section>
 {% endif %}
+
+</div>{# .home-content #}
+</div>{# .home-with-sidebar #}

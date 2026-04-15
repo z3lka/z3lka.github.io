@@ -1,3 +1,5 @@
+_site/
 /node_modules
 .nojekyll
 package-lock.json
+.env
