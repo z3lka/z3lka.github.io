@@ -2,19 +2,17 @@ Live site: [z3lka.github.io](https://z3lka.github.io)
 
 ![Blog](/blog_main.png)
 
-![Blog Sample](./blog_samp.png)
+# z3lka
 
-# Just a Blog
-
-A minimalist, fast personal site built with [Eleventy (11ty)](https://www.11ty.dev/). I use it to share posts, notes, daily logs, and projects.
+A minimalist personal site built with [Eleventy (11ty)](https://www.11ty.dev/). It includes notes, project/post scaffolding, and a monthly GitHub activity widget that updates during builds.
 
 ## Tech Stack
 
 - **Generator**: Eleventy (11ty)
 - **Content**: Markdown + Nunjucks layouts
-- **Styling**: water.css + custom `/src/css/main.css`
+- **Styling**: Custom `/src/css/main.css`
 - **Syntax highlighting**: Prism via `@11ty/eleventy-plugin-syntaxhighlight`
-- **Deploy**: GitHub Pages, Netlify, or Vercel
+- **Deploy**: GitHub Pages via GitHub Actions
 
 ## Quick start
 
@@ -23,27 +21,46 @@ A minimalist, fast personal site built with [Eleventy (11ty)](https://www.11ty.d
 ```bash
 git clone https://github.com/z3lka/z3lka.github.io.git
 cd z3lka.github.io
-npm install
+pnpm install
 ```
 
 2. Run the dev server
 
 ```bash
-npm run dev
-# or: npm start
+pnpm dev
+# or: pnpm start
 ```
 
 3. Build the site
 
 ```bash
-npm run build
+pnpm run build
 # Output goes to _site/
 ```
 
 ## Scripts
 
-- `npm run dev` / `npm start`: Run Eleventy with local server and watch
-- `npm run build`: Generate the static site into `_site/`
+- `pnpm dev` / `pnpm start`: Run Eleventy with local server and watch
+- `pnpm run build`: Generate the static site into `_site/`
+
+## GitHub activity
+
+The homepage uses `src/_data/githubActivity.js` to fetch the current month's GitHub contribution calendar at build time. For local development, create a local `.env` file:
+
+```env
+GITHUB_USERNAME=z3lka
+GITHUB_TOKEN=your_github_token
+```
+
+`.env` is ignored by git. Do not commit the token.
+
+For GitHub Actions, add a repository secret named `GH_ACTIVITY_TOKEN`. The workflow maps that secret into the build as `GITHUB_TOKEN`:
+
+```yml
+GITHUB_TOKEN: ${{ secrets.GH_ACTIVITY_TOKEN }}
+```
+
+Because this is a static site, GitHub activity updates only when the site rebuilds. The workflow runs on pushes, can be triggered manually, and is scheduled daily at `21:10 UTC` (`00:10` in Turkey).
 
 ## Project structure
 
@@ -51,7 +68,6 @@ npm run build
 src/
   _data/            # Global data (e.g. site metadata)
   _includes/        # Nunjucks layouts and partials
-  assets/           # Images and static assets (copied to /assets)
   css/              # Styles (copied to /css)
   posts/            # Long-form posts (tag: posts)
   notes/            # Notes and write-ups (tag: note)
@@ -84,7 +100,7 @@ Your post content here.
 ### Dates and collections
 
 - If you omit `date`, the site computes one automatically: first Git commit date of the file, then file creation time, then Eleventy’s page date.
-- Collections are built from tags used above: `collections.posts`, `collections.note`, `collections.projects`, `collections.log`.
+- Collections are built from tags used above: `collections.posts`, `collections.notes`, `collections.projects`, `collections.log`.
 
 ## Built-in filters
 
@@ -94,14 +110,19 @@ Your post content here.
 
 ## Styling and assets
 
-- Base styles via water.css and Prism (Tomorrow theme) for code blocks.
-- Add or edit styles in `src/css/main.css`.
-- Place images in `src/assets/`; they are served from `/assets/`.
+- Main styles live in `src/css/main.css`.
+- Prism's Tomorrow theme is loaded for code blocks.
+- Static assets can be placed in `src/assets/`; Eleventy copies them to `/assets/`.
 
 ## Deployment
 
-1. Build locally: `npm run build`
-2. Deploy the `_site/` folder to your host (GitHub Pages, Netlify, Vercel). For GitHub Pages on a user/organization site, push the repository named `<user>.github.io` and enable Pages.
+Deployment is handled by `.github/workflows/eleventy.yml`.
+
+1. Push to `main`, or run the workflow manually from GitHub Actions.
+2. The workflow installs dependencies, runs `pnpm run build`, uploads `_site`, and deploys through GitHub Pages.
+3. In repository settings, GitHub Pages should use **GitHub Actions** as the source.
+
+`_site/` is generated build output and is ignored by git.
 
 ---
 
