@@ -48,7 +48,7 @@ pnpm run build
 The homepage uses `src/_data/githubActivity.js` to fetch the current month's GitHub contribution calendar at build time. For local development, create a local `.env` file:
 
 ```env
-GITHUB_USERNAME=z3lka
+GITHUB_USERNAME=your_username
 GITHUB_TOKEN=your_github_token
 ```
 
