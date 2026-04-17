@@ -1,10 +1,14 @@
+// required deps
+
 const fs = require("node:fs");
 const path = require("node:path");
 const { DateTime } = require("luxon");
 const site = require("./site.json");
 
+//load local .env
 loadLocalEnv();
 
+// for github actions (autopush everyday)
 const ACTIVITY_TIME_ZONE =
   process.env.GITHUB_ACTIVITY_TIME_ZONE || "Europe/Istanbul";
 const GITHUB_USERNAME =
@@ -12,8 +16,9 @@ const GITHUB_USERNAME =
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 function loadLocalEnv() {
-  const envPath = path.join(process.cwd(), ".env");
+  const envPath = path.join(process.cwd(), ".env"); // get .env path
 
+  // if no .env
   if (!fs.existsSync(envPath)) {
     return;
   }
@@ -57,6 +62,7 @@ function getGitHubUsername(url) {
   }
 }
 
+// get month for the GitHub activity widget
 function getCurrentMonthRange() {
   const now = DateTime.now().setZone(ACTIVITY_TIME_ZONE);
   const fromDate = now.startOf("month");
