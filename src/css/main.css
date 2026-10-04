@@ -511,6 +511,47 @@ pre[class*="language-"] {
   gap: 0.2rem;
 }
 
+.github-month__heading,
+.github-month__nav {
+  display: flex;
+  align-items: center;
+}
+
+.github-month__heading {
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.github-month__nav {
+  gap: 0.3rem;
+}
+
+.github-month__nav button {
+  display: grid;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  place-items: center;
+}
+
+.github-month__nav button:hover:not(:disabled),
+.github-month__nav button:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.github-month__nav button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
 .github-month__header span,
 .github-month__weekdays {
   color: var(--muted);
@@ -542,6 +583,10 @@ pre[class*="language-"] {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 8px;
+}
+
+.github-month__grid[hidden] {
+  display: none;
 }
 
 .github-month__weekdays {

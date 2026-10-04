@@ -62,22 +62,37 @@ function getGitHubUsername(url) {
   }
 }
 
-// get month for the GitHub activity widget
-function getCurrentMonthRange() {
+// get the current year's range for the GitHub activity widget
+function getYearToDateRange() {
   const now = DateTime.now().setZone(ACTIVITY_TIME_ZONE);
-  const fromDate = now.startOf("month");
-  const nextMonth = fromDate.plus({ months: 1 });
-  const toDate = now < nextMonth ? now : nextMonth;
+  const fromDate = now.startOf("year");
 
   return {
     from: fromDate.toUTC().toISO({ suppressMilliseconds: true }),
-    to: toDate.toUTC().toISO({ suppressMilliseconds: true }),
-    fromDay: fromDate.toISODate(),
-    toDay: nextMonth.toISODate(),
-    monthLabel: fromDate.toFormat("LLLL yyyy"),
-    leadingSpacers: getMondayFirstGridColumn(fromDate.weekday) - 1,
-    monthDays: createMonthDays(fromDate, now),
+    to: now.toUTC().toISO({ suppressMilliseconds: true }),
+    now,
   };
+}
+
+function createYearMonths(now, contributionDays = []) {
+  const contributionsByDate = new Map(
+    contributionDays.map((day) => [day.date, day]),
+  );
+
+  return Array.from({ length: now.month }, (_, monthOffset) => {
+    const fromDate = now.startOf("year").plus({ months: monthOffset });
+    const days = createMonthDays(fromDate, now).map((day) => ({
+      ...day,
+      ...(contributionsByDate.get(day.date) || {}),
+    }));
+
+    return {
+      monthLabel: fromDate.toFormat("LLLL yyyy"),
+      total: days.reduce((total, day) => total + day.contributionCount, 0),
+      leadingSpacers: getMondayFirstGridColumn(fromDate.weekday) - 1,
+      days: addContributionLevels(days),
+    };
+  });
 }
 
 function createMonthDays(fromDate, now) {
@@ -107,7 +122,6 @@ const query = `
     user(login: $login) {
       contributionsCollection(from: $from, to: $to) {
         contributionCalendar {
-          totalContributions
           weeks {
             contributionDays {
               date
@@ -121,26 +135,23 @@ const query = `
   }
 `;
 
-module.exports = async function () {
-  const { from, to, monthLabel, fromDay, toDay, leadingSpacers, monthDays } =
-    getCurrentMonthRange();
+async function getGitHubActivity() {
+  const { from, to, now } = getYearToDateRange();
+  const emptyMonths = createYearMonths(now);
+  const currentMonth = emptyMonths.at(-1);
 
   if (!GITHUB_USERNAME) {
     return {
-      monthLabel,
-      total: 0,
-      leadingSpacers,
-      days: monthDays,
+      ...currentMonth,
+      months: emptyMonths,
       error: "Missing GitHub username",
     };
   }
 
   if (!GITHUB_TOKEN) {
     return {
-      monthLabel,
-      total: 0,
-      leadingSpacers,
-      days: monthDays,
+      ...currentMonth,
+      months: emptyMonths,
       error: "Missing GITHUB_TOKEN",
     };
   }
@@ -166,45 +177,31 @@ module.exports = async function () {
 
     if (!response.ok || json.errors || !json.data?.user) {
       return {
-        monthLabel,
-        total: 0,
-        leadingSpacers,
-        days: monthDays,
+        ...currentMonth,
+        months: emptyMonths,
         error: json.errors || "GitHub API error",
       };
     }
 
     const calendar =
       json.data.user.contributionsCollection.contributionCalendar;
-    const contributionsByDate = new Map(
-      calendar.weeks
-        .flatMap((week) => week.contributionDays)
-        .filter((day) => day.date >= fromDay && day.date < toDay)
-        .map((day) => [day.date, day]),
+    const months = createYearMonths(
+      now,
+      calendar.weeks.flatMap((week) => week.contributionDays),
     );
 
-    const days = monthDays.map((day) => ({
-      ...day,
-      ...(contributionsByDate.get(day.date) || {}),
-    }));
-    const daysWithLevels = addContributionLevels(days);
-
     return {
-      monthLabel,
-      total: calendar.totalContributions,
-      leadingSpacers,
-      days: daysWithLevels,
+      ...months.at(-1),
+      months,
     };
   } catch (error) {
     return {
-      monthLabel,
-      total: 0,
-      leadingSpacers,
-      days: monthDays,
+      ...currentMonth,
+      months: emptyMonths,
       error: error.message,
     };
   }
-};
+}
 
 function addContributionLevels(days) {
   const maxCount = Math.max(
@@ -239,3 +236,6 @@ function getContributionLevel(count, maxCount) {
 
   return 4;
 }
+
+module.exports = getGitHubActivity;
+module.exports.createYearMonths = createYearMonths;
