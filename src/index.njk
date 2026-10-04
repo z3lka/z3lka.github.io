@@ -10,12 +10,10 @@ description: Personal portfolio and notes by z3lka.
     <section class="github-month">
       <div class="github-month__header">
         <span>GitHub Activity</span>
-        <div class="github-month__heading">
+        <div class="github-month__heading" role="group" aria-label="GitHub activity month navigation">
+          <button type="button" data-github-previous aria-label="Show previous month">←</button>
           <h2 data-github-month-label aria-live="polite">{{ githubActivity.monthLabel }}</h2>
-          <div class="github-month__nav" aria-label="GitHub activity month navigation">
-            <button type="button" data-github-previous aria-label="Show previous month">←</button>
-            <button type="button" data-github-next aria-label="Show next month" disabled>→</button>
-          </div>
+          <button type="button" data-github-next aria-label="Show next month" disabled>→</button>
         </div>
         <p data-github-month-total>{{ githubActivity.total }} contributions</p>
       </div>
@@ -31,15 +29,27 @@ description: Personal portfolio and notes by z3lka.
         <span>S</span>
         <span>S</span>
       </div>
+      <div class="github-month__grid" data-github-current-month>
+        {% for month in githubActivity.months %}
+          {% if loop.last %}
+            {% for spacer in range(0, month.leadingSpacers) %}
+              <div class="github-day-spacer" aria-hidden="true"></div>
+            {% endfor %}
+            {% for day in month.days %}
+              <div class="github-day github-day--level-{{ day.level }}" title="{{ day.date }} — {{ day.contributionCount }} contributions" aria-label="{{ day.date }} — {{ day.contributionCount }} contributions"></div>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
       {% for month in githubActivity.months %}
-        <div class="github-month__grid" data-github-month data-month-label="{{ month.monthLabel }}" data-month-total="{{ month.total }}" {% if not loop.last %} hidden {% endif %}>
+        <template data-github-month data-month-label="{{ month.monthLabel }}" data-month-total="{{ month.total }}">
           {% for spacer in range(0, month.leadingSpacers) %}
             <div class="github-day-spacer" aria-hidden="true"></div>
           {% endfor %}
           {% for day in month.days %}
             <div class="github-day github-day--level-{{ day.level }}" title="{{ day.date }} — {{ day.contributionCount }} contributions" aria-label="{{ day.date }} — {{ day.contributionCount }} contributions"></div>
           {% endfor %}
-        </div>
+        </template>
       {% endfor %}
     </section>
   </aside>
@@ -160,5 +170,5 @@ description: Personal portfolio and notes by z3lka.
   </div>
   {# .home-content #}
 </div>
-<script src="/js/github-activity.js" defer></script>
+<script src="/js/github-activity.js?v=2" defer></script>
 {# .home-with-sidebar #}

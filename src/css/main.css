@@ -511,25 +511,17 @@ pre[class*="language-"] {
   gap: 0.2rem;
 }
 
-.github-month__heading,
-.github-month__nav {
-  display: flex;
-  align-items: center;
-}
-
 .github-month__heading {
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.github-month__nav {
+  display: grid;
+  grid-template-columns: 1.25rem minmax(0, 1fr) 1.25rem;
+  align-items: center;
   gap: 0.3rem;
 }
 
-.github-month__nav button {
+.github-month__heading button {
   display: grid;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
   padding: 0;
   border: 1px solid var(--line-strong);
   border-radius: 4px;
@@ -541,13 +533,13 @@ pre[class*="language-"] {
   place-items: center;
 }
 
-.github-month__nav button:hover:not(:disabled),
-.github-month__nav button:focus-visible {
+.github-month__heading button:hover:not(:disabled),
+.github-month__heading button:focus-visible {
   border-color: var(--accent);
   color: var(--accent);
 }
 
-.github-month__nav button:disabled {
+.github-month__heading button:disabled {
   cursor: default;
   opacity: 0.35;
 }
@@ -566,6 +558,7 @@ pre[class*="language-"] {
 .github-month__header h2 {
   font-size: 1.1rem;
   letter-spacing: -0.02em;
+  text-align: center;
 }
 
 .github-month__header p {
@@ -583,10 +576,6 @@ pre[class*="language-"] {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 8px;
-}
-
-.github-month__grid[hidden] {
-  display: none;
 }
 
 .github-month__weekdays {

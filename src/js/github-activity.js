@@ -2,6 +2,7 @@ const widget = document.querySelector(".github-month");
 
 if (widget) {
   const months = [...widget.querySelectorAll("[data-github-month]")];
+  const grid = widget.querySelector("[data-github-current-month]");
   const label = widget.querySelector("[data-github-month-label]");
   const total = widget.querySelector("[data-github-month-total]");
   const previous = widget.querySelector("[data-github-previous]");
@@ -9,9 +10,8 @@ if (widget) {
   let activeMonth = months.length - 1;
 
   function showMonth(index) {
-    months[activeMonth].hidden = true;
     activeMonth = index;
-    months[activeMonth].hidden = false;
+    grid.replaceChildren(months[activeMonth].content.cloneNode(true));
     label.textContent = months[activeMonth].dataset.monthLabel;
     total.textContent = `${months[activeMonth].dataset.monthTotal} contributions`;
     previous.disabled = activeMonth === 0;
