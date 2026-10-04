@@ -12,7 +12,7 @@ description: Personal portfolio and notes by z3lka.
         <span>GitHub Activity</span>
         <div class="github-month__heading" role="group" aria-label="GitHub activity month navigation">
           <button type="button" data-github-previous aria-label="Show previous month">←</button>
-          <h2 data-github-month-label aria-live="polite">{{ githubActivity.monthLabel }}</h2>
+          <h2 data-github-month-label aria-live="polite">{{ githubActivity.monthName }}</h2>
           <button type="button" data-github-next aria-label="Show next month" disabled>→</button>
         </div>
         <p data-github-month-total>{{ githubActivity.total }} contributions</p>
@@ -42,7 +42,7 @@ description: Personal portfolio and notes by z3lka.
         {% endfor %}
       </div>
       {% for month in githubActivity.months %}
-        <template data-github-month data-month-label="{{ month.monthLabel }}" data-month-total="{{ month.total }}">
+        <template data-github-month data-month-label="{{ month.monthName }}" data-month-total="{{ month.total }}">
           {% for spacer in range(0, month.leadingSpacers) %}
             <div class="github-day-spacer" aria-hidden="true"></div>
           {% endfor %}
@@ -170,5 +170,5 @@ description: Personal portfolio and notes by z3lka.
   </div>
   {# .home-content #}
 </div>
-<script src="/js/github-activity.js?v=2" defer></script>
+<script src="/js/github-activity.js?v=3" defer></script>
 {# .home-with-sidebar #}

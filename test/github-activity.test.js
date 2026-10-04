@@ -13,8 +13,8 @@ test("GitHub activity months run from January through the current month", () => 
   ]);
 
   assert.equal(months.length, 10);
-  assert.equal(months[0].monthLabel, "January 2026");
+  assert.equal(months[0].monthName, "January");
   assert.equal(months[0].total, 2);
-  assert.equal(months[9].monthLabel, "October 2026");
+  assert.equal(months[9].monthName, "October");
   assert.equal(months[9].total, 3);
 });

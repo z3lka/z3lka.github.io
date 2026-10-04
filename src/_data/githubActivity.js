@@ -87,7 +87,7 @@ function createYearMonths(now, contributionDays = []) {
     }));
 
     return {
-      monthLabel: fromDate.toFormat("LLLL yyyy"),
+      monthName: fromDate.toFormat("LLLL"),
       total: days.reduce((total, day) => total + day.contributionCount, 0),
       leadingSpacers: getMondayFirstGridColumn(fromDate.weekday) - 1,
       days: addContributionLevels(days),

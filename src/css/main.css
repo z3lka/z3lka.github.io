@@ -512,25 +512,34 @@ pre[class*="language-"] {
 }
 
 .github-month__heading {
-  display: grid;
-  grid-template-columns: 1.25rem minmax(0, 1fr) 1.25rem;
-  align-items: center;
-  gap: 0.3rem;
+  position: relative;
 }
 
 .github-month__heading button {
+  position: absolute;
+  top: 50%;
   display: grid;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
   padding: 0;
   border: 1px solid var(--line-strong);
   border-radius: 4px;
   background: transparent;
   color: var(--text);
   font: inherit;
+  font-size: 0.8rem;
   line-height: 1;
   cursor: pointer;
   place-items: center;
+  transform: translateY(-50%);
+}
+
+.github-month__heading button:first-of-type {
+  left: -1.1rem;
+}
+
+.github-month__heading button:last-of-type {
+  right: -1.1rem;
 }
 
 .github-month__heading button:hover:not(:disabled),
