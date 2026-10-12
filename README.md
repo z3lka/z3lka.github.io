@@ -6,6 +6,12 @@ Live site: [z3lka.github.io](https://z3lka.github.io)
 
 A minimalist personal site built with [Eleventy (11ty)](https://www.11ty.dev/). It includes notes, project/post scaffolding, and a monthly GitHub activity widget that updates during builds.
 
+## Selected work
+
+Six illustrated case studies now anchor the portfolio: **Şah-Mat Koçluk**, **MRI Field Translation**, **Trendyol Search Ranking**, **Marine Mucilage**, **Lattice**, and **Ambient Focus**.
+
+The homepage lists each project with its heading, date, reading time, author, and excerpt, using the same style as Notes. Each story covers the problem, my contribution, results, and lessons. [Portfolio guide](PORTFOLIO.md) documents the selection and image sources; editable stories live in [`src/projects/`](src/projects/).
+
 ## Tech Stack
 
 - **Generator**: Eleventy (11ty)

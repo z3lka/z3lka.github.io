@@ -2,17 +2,30 @@
 layout: base.njk
 ---
 
-<article class="page-article section-reveal">
-  <a class="back-link" href="/#projects">Back to home</a>
-  <header class="article-header">
-    <span class="section-label">Project</span>
+<article class="page-article project-article section-reveal">
+  <a class="back-link" href="/#projects">← Selected work</a>
+  <header class="article-header project-header">
+    <span class="section-label">{{ category }} · {{ period }}</span>
     <h1>{{ title }}</h1>
-    <div class="item-meta article-meta">
-      <span>{{ page.date | date("MMMM d, yyyy") }}</span>
-      <span>{{ content | readTime }} min read</span>
-      <span>{{ author or site.title }}</span>
-    </div>
+    <p class="project-deck">{{ description }}</p>
+    <ul class="project-stack" aria-label="Tools used">
+      {% for tool in stack %}<li>{{ tool }}</li>{% endfor %}
+    </ul>
+    <nav class="project-links" aria-label="{{ title }} links">
+      {% for link in links %}<a href="{{ link.url }}">{{ link.label }} <span aria-hidden="true">↗</span></a>{% endfor %}
+    </nav>
   </header>
+
+  <figure class="project-hero project-hero--{{ image.tone }}">
+    <img src="{{ image.src | url }}" alt="{{ image.alt }}" width="{{ image.width }}" height="{{ image.height }}" decoding="async">
+    <figcaption>{{ imageCaption }}{% if imageCreditUrl %} <a href="{{ imageCreditUrl }}">Image source</a>.{% endif %}</figcaption>
+  </figure>
+
+  <dl class="project-facts">
+    {% for fact in facts %}
+      <div><dt>{{ fact.label }}</dt><dd>{{ fact.value }}</dd></div>
+    {% endfor %}
+  </dl>
 
   <div class="article-body">
     {{ content | safe }}

@@ -76,7 +76,7 @@ description: Personal portfolio and notes by z3lka.
       </div>
       <div class="simple-list">
         {% if collections.projects.length %}
-          {% for project in collections.projects | reverse %}
+          {% for project in collections.projects | sort(false, false, "data.portfolioOrder") %}
             <article class="simple-item">
               <a href="{{ project.url | url }}">
                 <h3 class="item-title">{{ project.data.title or project.data.pageTitle }}</h3>
@@ -86,7 +86,7 @@ description: Personal portfolio and notes by z3lka.
                 <span>{{ project.templateContent | readTime }} min read</span>
                 <span>{{ project.data.author or site.title }}</span>
               </div>
-              <p class="item-summary">{{ project.templateContent | excerpt(34) }}</p>
+              <p class="item-summary">{{ project.templateContent | excerpt(36) }}</p>
             </article>
           {% endfor %}
         {% elif site.github %}
