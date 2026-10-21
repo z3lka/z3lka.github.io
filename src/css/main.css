@@ -8,7 +8,8 @@
   --muted: #66727a;
   --accent: #1d4f59;
   --accent-soft: rgba(29, 79, 89, 0.08);
-  --max-width: min(860px, calc(100% - 2rem));
+  --content-width: 720px;
+  --max-width: min(var(--content-width), calc(100% - 2rem));
   --radius: 18px;
   --sticker-size: 128px;
   --sticker-gap: 2rem;
@@ -30,6 +31,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: "Source Serif 4", Georgia, serif;
+  letter-spacing: 0.015em;
   line-height: 1.75;
 }
 
@@ -75,11 +77,11 @@ img {
 }
 
 .sticker-rail--left {
-  left: max(1rem, calc((100vw - 860px) / 2 - var(--sticker-size) - 2rem));
+  left: max(1rem, calc((100vw - var(--content-width)) / 2 - var(--sticker-size) - 2rem));
 }
 
 .sticker-rail--right {
-  right: max(1rem, calc((100vw - 860px) / 2 - var(--sticker-size) - 2rem));
+  right: max(1rem, calc((100vw - var(--content-width)) / 2 - var(--sticker-size) - 2rem));
 }
 
 .side-sticker-link {
@@ -319,7 +321,7 @@ blockquote {
 }
 
 .item-summary {
-  max-width: 42rem;
+  max-width: 38rem;
 }
 
 .project-links a:focus-visible {

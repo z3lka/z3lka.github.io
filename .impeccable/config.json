@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "createdAt": "2026-10-21T18:24:56.764Z",
+        "reason": "Codex review: all five declarations already exist in HEAD; preserve the incumbent typeface for the requested column-width and letter-spacing refinement."
+      }
+    ]
+  }
+}
